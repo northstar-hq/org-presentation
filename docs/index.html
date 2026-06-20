@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Northstar HQ — Org Presentation</title>
+
+  <!-- reveal.js from jsDelivr CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" />
+
+  <style>
+    .reveal h1 { font-size: 2em; letter-spacing: -0.02em; }
+    .reveal h2 { font-size: 1.4em; color: #e8c84a; }
+    .reveal h3 { font-size: 1em; color: #b0c4de; text-transform: uppercase; letter-spacing: 0.08em; }
+    .reveal p, .reveal li { font-size: 0.8em; line-height: 1.7; }
+    .reveal ul { list-style: none; padding: 0; margin: 0; }
+    .reveal ul li::before { content: "›  "; color: #e8c84a; font-weight: bold; }
+    .reveal strong { color: #e8c84a; }
+    .muted { color: #888; font-size: 0.7em; }
+
+    /* org cards */
+    .org-row {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em; margin-top: 0.6em;
+    }
+    .org-card {
+      background: #1e2a3a; border: 1px solid #3a4a5a; border-radius: 6px;
+      padding: 0.4em 0.8em; font-size: 0.7em; text-align: center; min-width: 7em;
+    }
+    .org-card .role { color: #e8c84a; font-weight: 700; }
+    .org-card .charter { color: #b0c4de; font-size: 0.85em; margin-top: 0.1em; }
+
+    /* state machine */
+    .state-machine {
+      display: flex; justify-content: center; align-items: center;
+      gap: 0.4em; flex-wrap: wrap; margin-top: 0.8em; font-size: 0.76em;
+    }
+    .state {
+      background: #1e2a3a; border: 1px solid #3a4a5a; border-radius: 4px; padding: 0.3em 0.7em;
+    }
+    .state.done { border-color: #e8c84a; color: #e8c84a; }
+    .arrow { color: #e8c84a; }
+
+    /* concern table */
+    .concern-table { width: 100%; border-collapse: collapse; font-size: 0.7em; margin-top: 0.6em; }
+    .concern-table th {
+      background: #1a2535; color: #e8c84a; padding: 0.3em 0.6em;
+      text-align: left; border-bottom: 2px solid #3a4a5a;
+    }
+    .concern-table td { padding: 0.28em 0.6em; border-bottom: 1px solid #2a3545; vertical-align: top; }
+    .concern-table tr:nth-child(even) td { background: #141e2e; }
+
+    /* delivery loop */
+    .loop-row {
+      display: flex; justify-content: center; align-items: center;
+      flex-wrap: wrap; gap: 0.3em; margin-top: 0.8em; font-size: 0.73em;
+    }
+    .loop-step {
+      background: #1e2a3a; border: 1px solid #3a4a5a; border-radius: 4px; padding: 0.3em 0.6em; text-align: center;
+    }
+    .loop-step .who { color: #e8c84a; font-weight: 700; font-size: 0.9em; }
+    .loop-step .what { color: #ccc; }
+
+    /* autonomy stage */
+    .stage-row { display: flex; justify-content: center; gap: 0.5em; margin-top: 0.8em; font-size: 0.73em; }
+    .stage-pip {
+      width: 5em; padding: 0.4em; border-radius: 5px; text-align: center;
+      background: #1e2a3a; border: 1px solid #3a4a5a; color: #666;
+    }
+    .stage-pip.active { background: #1e3020; border-color: #5aaa57; color: #7ecb7a; font-weight: 700; }
+    .stage-pip .num { font-size: 1.4em; font-weight: 800; }
+    .stage-pip .lbl { font-size: 0.72em; margin-top: 0.2em; }
+
+    /* segregation boxes */
+    .seg-row { display: flex; justify-content: center; gap: 1.2em; margin-top: 1em; font-size: 0.76em; }
+    .seg-box { text-align: center; }
+    .seg-box .chip {
+      border-radius: 4px; padding: 0.4em 1em;
+    }
+    .seg-box .lbl { color: #888; font-size: 0.85em; margin-top: 0.3em; }
+    .seg-deny .chip { background: #2a1a1a; border: 1px solid #5a2a2a; color: #e07070; }
+    .seg-ok .chip   { background: #1a2a1a; border: 1px solid #2a5a2a; color: #70e070; }
+
+    /* ledger chain */
+    .chain-row {
+      display: flex; justify-content: center; align-items: center;
+      gap: 0.5em; margin-top: 1em; font-size: 0.74em;
+    }
+    .chain-evt {
+      background: #1e2a3a; border: 1px solid #3a4a5a; border-radius: 4px; padding: 0.35em 0.7em; color: #888;
+    }
+    .chain-evt span { color: #555; }
+
+    /* closing box */
+    .closing-box {
+      background: #1a2535; border: 1px solid #3a4a5a; border-radius: 8px;
+      padding: 0.9em 1.4em; margin-top: 1em; font-size: 0.76em; color: #ccc; line-height: 1.8;
+    }
+  </style>
+</head>
+
+<body>
+<div class="reveal">
+<div class="slides">
+
+  <!-- ─── 1. TITLE ─────────────────────────────────────────── -->
+  <section>
+    <h1>Northstar HQ</h1>
+    <p style="font-size:1em; color:#b0c4de; margin-top:0.3em;">
+      A digital organisation that ships software<br>
+      through collaborative AI working groups
+    </p>
+    <p class="muted" style="margin-top:1.2em;">🧭 An overview</p>
+  </section>
+
+  <!-- ─── 2. WHAT IT IS ────────────────────────────────────── -->
+  <section>
+    <h2>What it is</h2>
+    <ul>
+      <li>A <strong>standing organisation</strong> of specialist AI agents — not a one-off project</li>
+      <li>Agents work in <strong>working groups</strong> that repeatedly deliver products</li>
+      <li>Coordination happens over an <strong>append-only event ledger</strong></li>
+      <li>Progress is observed through a <strong>read-only dashboard</strong></li>
+      <li>The ledger is the single source of truth — everything else is derived from it</li>
+    </ul>
+  </section>
+
+  <!-- ─── 3. THE CAST ──────────────────────────────────────── -->
+  <section>
+    <h2>The cast</h2>
+    <div class="org-row">
+      <div class="org-card" style="border-color:#b0c4de;">
+        <div class="role" style="color:#b0c4de;">Ali</div>
+        <div class="charter">Owner · Direction &amp; reserved powers</div>
+      </div>
+    </div>
+    <div style="text-align:center; font-size:1.2em; margin:0.3em 0; color:#e8c84a;">&#8595;</div>
+    <div class="org-row">
+      <div class="org-card" style="border-color:#e8c84a;">
+        <div class="role">Northstar</div>
+        <div class="charter">CTO · Coordination · Arbitration · Ratification</div>
+      </div>
+    </div>
+    <div style="text-align:center; font-size:1.2em; margin:0.3em 0; color:#e8c84a;">&#8595;</div>
+    <div class="org-row">
+      <div class="org-card"><div class="role">Vector</div><div class="charter">Flow</div></div>
+      <div class="org-card"><div class="role">Scout</div><div class="charter">Delivery / Product</div></div>
+      <div class="org-card"><div class="role">Forge</div><div class="charter">Architecture</div></div>
+      <div class="org-card"><div class="role">Ember</div><div class="charter">Build</div></div>
+      <div class="org-card" style="border-color:#e8c84a;"><div class="role">Prism</div><div class="charter">Design / UX</div></div>
+      <div class="org-card"><div class="role">Aegis</div><div class="charter">Security / Governance</div></div>
+      <div class="org-card"><div class="role">Litmus</div><div class="charter">Verification</div></div>
+      <div class="org-card"><div class="role">Relay</div><div class="charter">Build / Release</div></div>
+    </div>
+  </section>
+
+  <!-- ─── 4. THE SPINE: MAOS ───────────────────────────────── -->
+  <section>
+    <h2>The spine: MAOS</h2>
+    <ul>
+      <li>An <strong>append-only, hash-chained event ledger</strong> is the single source of truth</li>
+      <li>Nothing is "done" because someone says so — it is done because <strong>there is an event for it</strong></li>
+      <li>Every action produces an immutable record; the chain is tamper-evident</li>
+      <li>The dashboard, boards, and metrics are all <strong>derived projections</strong> of this log</li>
+      <li>No event &#8594; no effect. The ledger rules.</li>
+    </ul>
+    <div class="chain-row">
+      <div class="chain-evt">evt_001 <span>&#8594; h&#8321;</span></div>
+      <div class="arrow">&#8594;</div>
+      <div class="chain-evt">evt_002 <span>&#8594; h&#8322;</span></div>
+      <div class="arrow">&#8594;</div>
+      <div class="chain-evt">evt_003 <span>&#8594; h&#8323;</span></div>
+      <div class="arrow">&#8594;</div>
+      <div style="color:#555; font-size:0.9em;">&#8230;</div>
+    </div>
+  </section>
+
+  <!-- ─── 5. THE DELIVERY LOOP ─────────────────────────────── -->
+  <section>
+    <h2>The delivery loop</h2>
+    <div class="loop-row">
+      <div class="loop-step"><div class="who">Ali</div><div class="what">Intent</div></div>
+      <div class="arrow">&#8594;</div>
+      <div class="loop-step"><div class="who">Scout</div><div class="what">Writes cards</div></div>
+      <div class="arrow">&#8594;</div>
+      <div class="loop-step"><div class="who">Vector</div><div class="what">Forms &amp; sequences<br>working group</div></div>
+      <div class="arrow">&#8594;</div>
+      <div class="loop-step"><div class="who">Forge</div><div class="what">Designs</div></div>
+      <div class="arrow">&#8594;</div>
+      <div class="loop-step"><div class="who">Ember</div><div class="what">Builds</div></div>
+      <div class="arrow">&#8594;</div>
+      <div class="loop-step"><div class="who">Litmus</div><div class="what">Verifies<br>(independently)</div></div>
+      <div class="arrow">&#8594;</div>
+      <div class="loop-step"><div class="who">Relay</div><div class="what">Releases</div></div>
+    </div>
+    <p class="muted" style="margin-top:1em; text-align:center;">Aegis governs throughout every stage</p>
+  </section>
+
+  <!-- ─── 6. THE TASK HANDSHAKE (+ vertical sub-slide) ─────── -->
+  <section>
+    <section>
+      <h2>The task handshake</h2>
+      <ul>
+        <li>Every card walks a <strong>strict one-way state machine</strong></li>
+        <li><strong>Claim</strong> a card before you progress it — no silent work</li>
+        <li>Transitions are ledger events; skipping a state is impossible</li>
+      </ul>
+      <div class="state-machine">
+        <div class="state">created</div>
+        <div class="arrow">&#8594;</div>
+        <div class="state">claimed<br><span style="font-size:0.8em; color:#888;">(in-progress)</span></div>
+        <div class="arrow">&#8594;</div>
+        <div class="state">in-review</div>
+        <div class="arrow">&#8594;</div>
+        <div class="state done">done</div>
+      </div>
+      <p class="muted" style="margin-top:0.9em; text-align:center;">&#8595; scroll for R3 — segregation of duties</p>
+    </section>
+
+    <section>
+      <h2>R3 — Segregation of duties</h2>
+      <ul>
+        <li>The agent who <strong>built</strong> a card can <strong>never</strong> be the one who <strong>verifies</strong> it</li>
+        <li>Enforced in code — not by convention</li>
+        <li>Litmus is the designated independent verifier for all cards</li>
+        <li>Prevents self-ratification; preserves integrity of the "done" state</li>
+      </ul>
+      <div class="seg-row">
+        <div class="seg-box seg-deny">
+          <div class="chip">Ember</div>
+          <div class="lbl">built it</div>
+        </div>
+        <div style="align-self:center; font-size:1.4em; color:#555;">&#10005;</div>
+        <div class="seg-box seg-deny">
+          <div class="chip">Ember</div>
+          <div class="lbl">verifies it</div>
+        </div>
+        <div style="align-self:center; font-size:1.4em; color:#e8c84a;">&#8594;</div>
+        <div class="seg-box seg-ok">
+          <div class="chip">Litmus</div>
+          <div class="lbl">verifies it &#10003;</div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ─── 7. CONTROL LAYER 1 — AUTHORITY RAILS ────────────── -->
+  <section>
+    <h2>Control layer 1 — Authority rails</h2>
+    <ul>
+      <li>Rules <strong>R1–R9</strong>, <strong>E1</strong>, and a <strong>stage-gate</strong> guard every write to the ledger</li>
+      <li><strong>Fail-closed</strong>: if a rule cannot be evaluated, the write is denied</li>
+      <li>Implemented <strong>in code</strong> — not documented conventions</li>
+      <li>Example: Northstar physically <em>cannot</em> author backlog cards</li>
+      <li>Reserved work cannot auto-complete regardless of autonomy stage</li>
+      <li>Every rule violation is itself a ledger event — auditable forever</li>
+    </ul>
+  </section>
+
+  <!-- ─── 8. CONTROL LAYER 2 — AUTONOMY STAGES ────────────── -->
+  <section>
+    <h2>Control layer 2 — Autonomy stages</h2>
+    <ul>
+      <li>A single <strong>Owner-set dial</strong> (0–3) controls how much runs without a human</li>
+      <li>Applies org-wide; individual agent overrides are not possible</li>
+    </ul>
+    <div class="stage-row">
+      <div class="stage-pip">
+        <div class="num">0</div>
+        <div class="lbl">Full human approval</div>
+      </div>
+      <div class="stage-pip">
+        <div class="num">1</div>
+        <div class="lbl">Agents work; human completes</div>
+      </div>
+      <div class="stage-pip active">
+        <div class="num">2</div>
+        <div class="lbl">Self-complete after independent verify</div>
+      </div>
+      <div class="stage-pip">
+        <div class="num">3</div>
+        <div class="lbl">Fully autonomous</div>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:0.8em; text-align:center;">
+      Currently <strong style="color:#7ecb7a;">Stage 2</strong> — an agent may self-complete,
+      but only after an independent verification
+    </p>
+  </section>
+
+  <!-- ─── 9. CONTROL LAYER 3 — THE HARNESS ────────────────── -->
+  <section>
+    <h2>Control layer 3 — The harness</h2>
+    <ul>
+      <li><strong>Lane selection:</strong> Path A (subscription) or Path B (metered OpenRouter — default)</li>
+      <li><strong>Bounds:</strong> per-run kill switch + weekly spend cap</li>
+      <li><strong>Isolation:</strong> sandbox with host isolation, egress allow-list, scoped 1-hour single-repo tokens</li>
+      <li><strong>Safety gates:</strong> only an engine that passes all gates may take the next autonomous step</li>
+      <li>The harness is the agent's "hands" — it executes; it also constrains</li>
+    </ul>
+  </section>
+
+  <!-- ─── 10. THE EIGHT HARNESS CONCERNS ──────────────────── -->
+  <section>
+    <h2>The eight harness concerns</h2>
+    <table class="concern-table">
+      <thead>
+        <tr><th>#</th><th>Concern</th><th>What it covers</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Loop &amp; runtime</strong></td><td>How the agent thinks and acts in a single run</td></tr>
+        <tr><td>2</td><td><strong>Bounds</strong></td><td>Time, cost, and step limits per run</td></tr>
+        <tr><td>3</td><td><strong>Execution environment</strong></td><td>Sandbox, isolation, egress control</td></tr>
+        <tr><td>4</td><td><strong>Memory &amp; context</strong></td><td>What the agent can see and remember</td></tr>
+        <tr><td>5</td><td><strong>Safety &amp; policy</strong></td><td>Rules, gates, and refusal logic</td></tr>
+        <tr><td>6</td><td><strong>State &amp; resume</strong></td><td>Persisting progress; resuming interrupted runs</td></tr>
+        <tr><td>7</td><td><strong>Doing the next step</strong></td><td>Autonomous continuation with human-in-loop option</td></tr>
+        <tr><td>8</td><td><strong>Observability</strong></td><td>Logging, tracing, and audit</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:0.6em; text-align:center;">
+      In a serious agent platform, most reliability and safety lives here — not in the model.
+    </p>
+  </section>
+
+  <!-- ─── 11. OBSERVABILITY — MISSION CONTROL ─────────────── -->
+  <section>
+    <h2>Observability — Mission Control</h2>
+    <ul>
+      <li>A <strong>read-only dashboard</strong> that projects the ledger into human-readable views</li>
+      <li>Can <strong>read everything</strong>; can <strong>write nothing</strong> — by design</li>
+    </ul>
+    <div class="org-row" style="margin-top:0.9em;">
+      <div class="org-card"><div class="role">Boards</div><div class="charter">Card status across working groups</div></div>
+      <div class="org-card"><div class="role">Metrics</div><div class="charter">Throughput, cycle time, rule violations</div></div>
+      <div class="org-card"><div class="role">Timelines</div><div class="charter">When events happened; by whom</div></div>
+      <div class="org-card"><div class="role">Provenance</div><div class="charter">Full audit trail for every card</div></div>
+      <div class="org-card"><div class="role">Git activity</div><div class="charter">Commits &amp; PRs linked to events</div></div>
+    </div>
+  </section>
+
+  <!-- ─── 12. THE INVARIANT ────────────────────────────────── -->
+  <section>
+    <h2>The invariant</h2>
+    <div style="text-align:center; margin:0.8em 0; font-size:0.85em;">
+      <span style="background:#1e2a3a; border:1px solid #3a4a5a; border-radius:4px; padding:0.3em 0.8em;">Specialists</span>
+      <span style="color:#e8c84a; margin:0 0.4em;">&#8594;</span>
+      <span style="background:#1e2a3a; border:1px solid #e8c84a; border-radius:4px; padding:0.3em 0.8em; color:#e8c84a; font-weight:700;">Northstar</span>
+      <span style="color:#e8c84a; margin:0 0.4em;">&#8594;</span>
+      <span style="background:#1e2a3a; border:1px solid #b0c4de; border-radius:4px; padding:0.3em 0.8em; color:#b0c4de;">Ali</span>
+    </div>
+    <ul>
+      <li>Agents <strong>collaborate peer-to-peer</strong> inside working groups</li>
+      <li>Only <strong>decisions, major risks, and approvals</strong> escalate to the Owner</li>
+      <li>Northstar is the single arbitration and ratification point between specialists and Owner</li>
+      <li>This keeps the Owner informed without burdening them with every detail</li>
+    </ul>
+  </section>
+
+  <!-- ─── 13. CLOSING ──────────────────────────────────────── -->
+  <section>
+    <h2>Built by the org, for the org.</h2>
+    <div class="closing-box">
+      This very deck was delivered through the loop above.<br>
+      <strong>Card:</strong> OP-DECK &nbsp;·&nbsp;
+      <strong>Working group:</strong> WG-ORG-PRES &nbsp;·&nbsp;
+      <strong>Built in:</strong> a sandboxed agent run &nbsp;·&nbsp;
+      <strong>Verified:</strong> independently
+    </div>
+    <p class="muted" style="margin-top:1.2em; text-align:center;">🧭 Northstar HQ</p>
+  </section>
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<!-- reveal.js core + plugins from jsDelivr CDN -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    controls: true,
+    progress: true,
+    center: true,
+    transition: 'slide',
+    plugins: [ RevealNotes, RevealHighlight ]
+  });
+</script>
+</body>
+</html>
